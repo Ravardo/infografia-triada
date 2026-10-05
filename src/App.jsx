@@ -33,14 +33,13 @@ const ParticlesBackground = () => {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#111827'; // Puntos negros/gris muy oscuro
+        ctx.fillStyle = '#111827'; 
         ctx.fill();
       }
       update() {
         if (this.x > canvas.width || this.x < 0) this.dx = -this.dx;
         if (this.y > canvas.height || this.y < 0) this.dy = -this.dy;
 
-        // Interacción con el mouse
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -84,7 +83,6 @@ const ParticlesBackground = () => {
       connect();
     };
 
-    // Conecta los puntos cercanos con líneas
     const connect = () => {
       for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a; b < particlesArray.length; b++) {
@@ -92,7 +90,7 @@ const ParticlesBackground = () => {
                          ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
           if (distance < 12000) {
             let opacity = 1 - (distance / 12000);
-            ctx.strokeStyle = 'rgba(17, 24, 39,' + (opacity * 0.3) + ')'; // Líneas negras semitransparentes
+            ctx.strokeStyle = 'rgba(17, 24, 39,' + (opacity * 0.3) + ')'; 
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -122,10 +120,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen text-gray-900 font-sans selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen text-gray-900 font-sans selection:bg-blue-500 selection:text-white pb-20">
       <ParticlesBackground />
       
-      {/* Estilos CSS de la Pirámide adaptada para fondo claro */}
+      {/* Estilos CSS de la Pirámide adaptada a los colores C.I.A Clásicos */}
       <style>{`
         @keyframes spin-3d {
           0% { transform: rotateX(-15deg) rotateY(0deg); }
@@ -158,9 +156,9 @@ function App() {
           transform-origin: 50% 100%;
           backdrop-filter: blur(2px);
         }
-        .front { border-bottom-color: rgba(37, 99, 235, 0.85); transform: translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(37,99,235,0.3); }
-        .right { border-bottom-color: rgba(5, 150, 105, 0.85); transform: rotateY(120deg) translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(5,150,105,0.3); }
-        .left  { border-bottom-color: rgba(220, 38, 38, 0.85); transform: rotateY(240deg) translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(220,38,38,0.3); }
+        .front { border-bottom-color: rgba(37, 99, 235, 0.85); transform: translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(37,99,235,0.3); } /* Azul */
+        .right { border-bottom-color: rgba(5, 150, 105, 0.85); transform: rotateY(120deg) translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(5,150,105,0.3); } /* Verde */
+        .left  { border-bottom-color: rgba(245, 158, 11, 0.85); transform: rotateY(240deg) translateZ(57px) rotateX(20deg); box-shadow: 0 0 30px rgba(245,158,11,0.3); } /* Amarillo/Naranja */
       `}</style>
 
       {/* Portada */}
@@ -174,43 +172,47 @@ function App() {
          </div>
 
          <h1 className="text-5xl md:text-7xl font-extrabold text-center mb-6 tracking-tight z-10 drop-shadow-sm">
-           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-emerald-600 to-red-600">
-             La Tríada CIA
+           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-emerald-600 to-amber-500">
+             La Tríada C.I.A
            </span>
          </h1>
          <p className="text-xl md:text-2xl text-gray-600 text-center mb-12 max-w-3xl leading-relaxed z-10">
-           El corazón de la <span className="text-gray-900 font-bold">Seguridad de la Información</span>.
-           Descubre cómo proteger los datos en un mundo digital hostil.
+           El núcleo de la <span className="text-gray-900 font-bold">Gestión de Seguridad de la Información</span>.
+           Políticas, protocolos y mecanismos para blindar activos digitales.
          </p>
 
          <div 
            className="absolute bottom-10 animate-bounce cursor-pointer flex flex-col items-center text-gray-500 hover:text-gray-900 transition-colors bg-white/50 p-2 rounded-full"
            onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
          >
-            <span className="mb-2 text-sm uppercase tracking-widest font-bold">Explorar</span>
+            <span className="mb-2 text-sm uppercase tracking-widest font-bold">Explorar Arquitectura</span>
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
          </div>
       </div>
 
-      {/* Tarjetas */}
-      <div className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Tarjetas Interactivas Principales */}
+      <div className="flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Conceptos Fundamentales</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl">
           
+          {/* Confidencialidad */}
           <div
             className={`relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-8 cursor-pointer transition-all duration-500 overflow-hidden shadow-lg group ${activeCard === 0 ? 'scale-105 shadow-[0_0_40px_-10px_rgba(37,99,235,0.3)]' : 'hover:-translate-y-2 hover:shadow-[0_0_30px_-10px_rgba(37,99,235,0.2)]'}`}
             onClick={() => toggleCard(0)}
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-blue-400"></div>
-            <h2 className="text-3xl font-bold text-blue-600 mb-4 transition-colors">Confidencialidad</h2>
+            <h2 className="text-3xl font-bold text-blue-600 mb-4 transition-colors flex items-center gap-3">
+              🔒 Confidencialidad
+            </h2>
             <p className="text-gray-600 leading-relaxed text-lg mb-4">
-              Garantizar que la información sea accesible <strong>únicamente</strong> para quienes tienen autorización explícita.
+              Asegura que los datos estáticos o en tránsito no sean divulgados a individuos, entidades o procesos no autorizados.
             </p>
             <div className={`transition-all duration-500 ${activeCard === 0 ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'} overflow-hidden`}>
               <div className="bg-blue-50 p-5 rounded-xl border border-blue-100">
-                <p className="text-blue-900 text-sm md:text-base">
-                  <strong className="block text-blue-700 mb-2 font-bold uppercase tracking-wider">⚡ Aplicación Real:</strong>
-                  El cifrado de extremo a extremo en aplicaciones de mensajería o túneles VPN.
-                </p>
+                <ul className="list-disc pl-5 text-blue-900 text-sm space-y-2">
+                  <li><strong>Mecanismos:</strong> Cifrado simétrico/asimétrico (AES, RSA), Control de Acceso Basado en Roles (RBAC), Autenticación Multifactor (MFA).</li>
+                  <li><strong>Vulnerabilidades:</strong> Ataques Man-in-the-Middle (MitM), Phishing, escalamiento de privilegios, ingeniería social.</li>
+                </ul>
               </div>
             </div>
             <div className="mt-6 text-blue-600 text-sm font-bold flex items-center gap-2 uppercase tracking-wide">
@@ -218,21 +220,24 @@ function App() {
             </div>
           </div>
 
+          {/* Integridad */}
           <div
             className={`relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-8 cursor-pointer transition-all duration-500 overflow-hidden shadow-lg group ${activeCard === 1 ? 'scale-105 shadow-[0_0_40px_-10px_rgba(5,150,105,0.3)]' : 'hover:-translate-y-2 hover:shadow-[0_0_30px_-10px_rgba(5,150,105,0.2)]'}`}
             onClick={() => toggleCard(1)}
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-600 to-emerald-400"></div>
-            <h2 className="text-3xl font-bold text-emerald-600 mb-4 transition-colors">Integridad</h2>
+            <h2 className="text-3xl font-bold text-emerald-600 mb-4 transition-colors flex items-center gap-3">
+              ⚙️ Integridad
+            </h2>
             <p className="text-gray-600 leading-relaxed text-lg mb-4">
-              Mantener la exactitud y totalidad de los datos. Evitar cualquier modificación no autorizada o accidental.
+              Garantiza la exactitud, completitud y validez de la información a lo largo de todo su ciclo de vida.
             </p>
             <div className={`transition-all duration-500 ${activeCard === 1 ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'} overflow-hidden`}>
               <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-100">
-                <p className="text-emerald-900 text-sm md:text-base">
-                  <strong className="block text-emerald-700 mb-2 font-bold uppercase tracking-wider">⚡ Aplicación Real:</strong>
-                  Uso de funciones Hash (como SHA-256) en bases de datos o al descargar software.
-                </p>
+                <ul className="list-disc pl-5 text-emerald-900 text-sm space-y-2">
+                  <li><strong>Mecanismos:</strong> Funciones Hash (SHA-256, MD5), Firmas Digitales, Certificados SSL/TLS, Controles de versiones (Git).</li>
+                  <li><strong>Vulnerabilidades:</strong> Inyección SQL, alteraciones no autorizadas en bases de datos, malware que corrompe archivos.</li>
+                </ul>
               </div>
             </div>
             <div className="mt-6 text-emerald-600 text-sm font-bold flex items-center gap-2 uppercase tracking-wide">
@@ -240,24 +245,27 @@ function App() {
             </div>
           </div>
 
+          {/* Disponibilidad */}
           <div
-            className={`relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-8 cursor-pointer transition-all duration-500 overflow-hidden shadow-lg group ${activeCard === 2 ? 'scale-105 shadow-[0_0_40px_-10px_rgba(220,38,38,0.3)]' : 'hover:-translate-y-2 hover:shadow-[0_0_30px_-10px_rgba(220,38,38,0.2)]'}`}
+            className={`relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-8 cursor-pointer transition-all duration-500 overflow-hidden shadow-lg group ${activeCard === 2 ? 'scale-105 shadow-[0_0_40px_-10px_rgba(245,158,11,0.3)]' : 'hover:-translate-y-2 hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.2)]'}`}
             onClick={() => toggleCard(2)}
           >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-400"></div>
-            <h2 className="text-3xl font-bold text-red-600 mb-4 transition-colors">Disponibilidad</h2>
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-amber-400"></div>
+            <h2 className="text-3xl font-bold text-amber-500 mb-4 transition-colors flex items-center gap-3">
+              ⏱️ Disponibilidad
+            </h2>
             <p className="text-gray-600 leading-relaxed text-lg mb-4">
-              Asegurar que la información y los sistemas informáticos estén operativos y listos cuando se necesiten.
+              Asegura que los sistemas, aplicaciones y datos estén operativos y accesibles cuando los usuarios autorizados los requieran.
             </p>
             <div className={`transition-all duration-500 ${activeCard === 2 ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0'} overflow-hidden`}>
-              <div className="bg-red-50 p-5 rounded-xl border border-red-100">
-                <p className="text-red-900 text-sm md:text-base">
-                  <strong className="block text-red-700 mb-2 font-bold uppercase tracking-wider">⚡ Aplicación Real:</strong>
-                  Implementación de balanceadores de carga y servidores redundantes (Backups).
-                </p>
+              <div className="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                <ul className="list-disc pl-5 text-amber-900 text-sm space-y-2">
+                  <li><strong>Mecanismos:</strong> Balanceadores de carga, clústeres de alta disponibilidad (HA), Planes de Recuperación ante Desastres (DRP), copias de seguridad distribuidas.</li>
+                  <li><strong>Vulnerabilidades:</strong> Ataques de Denegación de Servicio (DDoS), fallas de hardware, desastres naturales, ransomware.</li>
+                </ul>
               </div>
             </div>
-            <div className="mt-6 text-red-600 text-sm font-bold flex items-center gap-2 uppercase tracking-wide">
+            <div className="mt-6 text-amber-500 text-sm font-bold flex items-center gap-2 uppercase tracking-wide">
               {activeCard === 2 ? 'Cerrar detalle ↑' : 'Toca para profundizar ↓'}
             </div>
           </div>
@@ -265,9 +273,30 @@ function App() {
         </div>
       </div>
 
-      {/* Marca de agua Horda (Adaptada a modo claro) */}
+      {/* Sección Adicional: Profundidad Técnica */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-xl border border-gray-200">
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center border-b pb-4">Implementación en la Arquitectura de Sistemas</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700">
+            <div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">El Desafío del Equilibrio</h4>
+              <p className="mb-4">
+                En ingeniería de software, maximizar un pilar suele comprometer otro. Por ejemplo, exigir múltiples capas de cifrado y autenticación (máxima Confidencialidad e Integridad) puede ralentizar el sistema y dificultar el acceso legítimo, afectando la Disponibilidad. El rol del ingeniero es diseñar arquitecturas resilientes que equilibren la tríada según las necesidades del negocio.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">Modelos de Control de Acceso</h4>
+              <p className="mb-4">
+                Para sostener la tríada, se implementan modelos estrictos como <strong>Zero Trust</strong> (no confiar en nadie por defecto, verificar siempre), el <strong>Principio de Menor Privilegio</strong> (otorgar solo los permisos mínimos necesarios para operar) y la segmentación de redes, asegurando que si un atacante vulnera un nodo, no comprometa todo el sistema.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Marca de agua Horda */}
       <div className="fixed bottom-4 right-4 text-gray-700 text-sm font-medium opacity-80 hover:opacity-100 transition-opacity duration-300 flex items-center gap-3 cursor-default bg-white/90 p-2 rounded-lg backdrop-blur-md shadow-xl border border-gray-200 z-50">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/WoW_Horde_Logo.svg/1024px-WoW_Horde_Logo.svg.png" alt="Logo Horda" className="h-10 w-auto drop-shadow-[0_0_5px_rgba(220,38,38,0.5)]" />
+        <img src="https://wow.zamimg.com/images/wow/icons/large/achievement_character_troll_male.jpg" alt="Logo Horda" className="h-10 w-auto drop-shadow-[0_0_5px_rgba(220,38,38,0.5)]" />
         <span className="hidden md:inline pr-2">Desarrollado por Rodrigo Catalán</span>
       </div>
     </div>
